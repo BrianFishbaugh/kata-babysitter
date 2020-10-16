@@ -26,7 +26,7 @@ function findBaseTotalHours(startTime , bedTime) {
             baseHours = 0;
         };
     };
-    if (bedTime < 4) {
+    if (bedTime < 5) {
         baseHours = midnight - startTime;
         // Cannot Have Negative Hours
         if (baseHours < 0) {
@@ -39,47 +39,69 @@ function findBaseTotalHours(startTime , bedTime) {
 
 // Tests for Base Rate Hours
 QUnit.module('findBaseTotalHours', function() {
-// 1. BedTime < Midnight
+
     QUnit.test('Generic Test to Ensure Works', function(assert) {
         assert.equal(findBaseTotalHours(17, 23), 6, '23 - 17 = 6');
       });
-// 2. Bedtime > Midnight
+
     QUnit.test('Bedtime After Midnight to check pay change', function(assert) {
         assert.equal(findBaseTotalHours(17, 2), 7, '24 - 17 = 7');
       });
-// 3. Bedtime == Start Time 
+
     QUnit.test('Bedtime IS the start Time', function(assert) {
         assert.equal(findBaseTotalHours(17, 17), 0, '17 - 17 = 0');
       });
-// 3. Bedtime Starts Before Start Time
+
     QUnit.test('Kids are in Bed BEFORE Start Time', function(assert) {
         assert.equal(findBaseTotalHours(18, 17), 0, '17 - 18 = 0 Can not Have Negative Hours');
       });
-// 5. Bedtime is Midnight 
+
     QUnit.test('Bedtime is Pay Change Rate', function(assert) {
         assert.equal(findBaseTotalHours(17, 24), 7, '24 - 17 = 7');
       });
-// 6. Bedtime is a Half Hour
+
     QUnit.test('BedTime is a half hour', function(assert) {
         assert.equal(findBaseTotalHours(17, 19.5), 3, '20 - 15 = 3 (Rounded Up)');
       });
-// 7. Bedtime is JUST after an hour
+
     QUnit.test('Bed time is JUST after an Hour', function(assert) {
         assert.equal(findBaseTotalHours(17, 20.03), 4, '20.03 - 17 = 4 (Rounded Up)');
       });
-// 8. Bedtime is Before Start Date & Decimal
+
     QUnit.test('Bedtime is before Start Time & a Decimal', function(assert) {
         assert.equal(findBaseTotalHours(18, 17.1), 0, '18 - 17 = 0 (-1, Rounded to 0)');
       });
     });
 
-  </script>
+    // Bed Time Hours Testing Function:  
+    function findBedTimeTotalHours(startTime, endTime, bedTime) {
+        const midnight = 24;
+        let btHours;
+    
+    if (bedTime < midnight) {
+        if (endTime < 5) {
+            btHours = midnight - bedTime;
+        };
 
-<script>
-        // Bed Time Hours Testing Function:  
-        function findBedTimeTotalHours(startTime, endTime, bedTime) {
-            return null;
+        if (bedTime < startTime) {
+            btHours = midnight - startTime;
+        }
+
+        if (endTime >= 17) {
+            if (bedTime < endTime) {
+                btHours = endTime - bedTime;
+            };
+
+            if (bedTime > endTime) {
+                btHours = 0;
+            };
+        };
     };
+    if (bedTime < 5 || bedTime == midnight) {
+        btHours = 0;
+    };
+        return Math.floor(btHours);
+};
 
 // Tests for Bed Time Hours
 QUnit.module('findBedTimeTotalHours', function() {
@@ -100,10 +122,6 @@ QUnit.module('findBedTimeTotalHours', function() {
         assert.equal(findBedTimeTotalHours(17, 23 , 20), 3, 'End Time - Bed Time = 3');
     });
 
-    QUnit.test('Bedtime AT EndTime', function(assert) {
-        assert.equal(findBedTimeTotalHours(17, 21 , 21), 0, 'End Time - Bed Time = 0');
-      });
-
     QUnit.test('Bed Time Before Start Time', function(assert) {
         assert.equal(findBedTimeTotalHours(20, 1 , 19), 4, 'Midnight - Start Time = 4');
     });
@@ -117,12 +135,13 @@ QUnit.module('findBedTimeTotalHours', function() {
     });
 
     QUnit.test('Partial Hours: Bed Time Before Midnight, End Time After Midnight', function(assert) {
-        assert.equal(findBedTimeTotalHours(17, 3 , 25.5), 0, 'Midnight - Bed Time = .5 Rounded Down = 0');
+        assert.equal(findBedTimeTotalHours(17, 3 , 23.5), 0, 'Midnight - Bed Time = .5 Rounded Down = 0');
     });
 
     QUnit.test('Partial Hours Start: Bed Time Before Midnight, End Time After Midnight', function(assert) {
-        assert.equal(findBedTimeTotalHours(17.5, 3 , 19), 1, 'Bed Time - Start Time = 1.5 Rounded Down = 1');
+        assert.equal(findBedTimeTotalHours(17.5, 3 , 19), 5, 'Midnight - bedTime = 5');
     });
 
 });
+
 </script>
