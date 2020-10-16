@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Test Suite</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.11.3.css">
+    <script src = "/Users/bfishbaugh/kata-babysitter/BabysitterJS.JS"></script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.11.3.js"></script>
+</body>
+</html>
+
+<script>
+    // Base Rate hours Testing Function: 
+function findBaseTotalHours(startTime , bedTime) {
+    let baseHours;
+    let midnight = 24;
+    if (bedTime > 4) {
+        baseHours = bedTime - startTime;
+        // Cannot Have Negative Hours
+        if (baseHours < 0) {
+            baseHours = 0;
+        };
+    };
+    if (bedTime < 4) {
+        baseHours = midnight - startTime;
+        // Cannot Have Negative Hours
+        if (baseHours < 0) {
+            baseHours = 0;
+        };
+    };
+    // Returns Number of Hours Rounded up once the Hour Started
+    return Math.ceil(baseHours);
+};
+// Tests for Base Rate Hours
+    QUnit.module('findBaseTotalHours', function() {
+// 1. BedTime < Midnight
+      QUnit.test('Bedtime @ 11:00 Start Time @ 5:00 - Generic Test to Ensure Works', function(assert) {
+        assert.equal(findBaseTotalHours(17, 23), 6, '23 - 17 = 6');
+      });
+// 2. Bedtime > Midnight
+      QUnit.test('BedTime @ 2:00 Start Time @ 5:00 - Bedtime After Midnight to check pay change', function(assert) {
+        assert.equal(findBaseTotalHours(17, 2), 7, '24 - 17 = 7');
+      });
+// 3. Bedtime == Start Time 
+      QUnit.test('BedTime @ 5:00 Start Time @ 5:00 - Bedtime IS the start Time', function(assert) {
+        assert.equal(findBaseTotalHours(17, 17), 0, '17 - 17 = 0');
+      });
+// 3. Bedtime Starts Before Start Time
+    QUnit.test('BedTime @ 5:00 Start Time @ 6:00 - Kids are in Bed BEFORE Start Time', function(assert) {
+        assert.equal(findBaseTotalHours(18, 17), 0, '17 - 18 = 0 Can not Have Negative Hours');
+      });
+// 5. Bedtime is Midnight 
+    QUnit.test('BedTime @ Midnight: Start Time @ 5:00 - Bedtime is Pay Change Rate', function(assert) {
+        assert.equal(findBaseTotalHours(17, 24), 7, '24 - 17 = 7');
+      });
+// 6. Bedtime is a Half Hour
+    QUnit.test('BedTime @ 7:30 Start Time @ 5:00 - BedTime is a half hour', function(assert) {
+        assert.equal(findBaseTotalHours(17, 19.5), 3, '20 - 15 = 3 (Rounded Up)');
+      });
+// 7. Bedtime is JUST after an hour
+    QUnit.test('BedTime @ 8:02 Start Time @ 5:00 - Bed time is JUST after an Hour', function(assert) {
+        assert.equal(findBaseTotalHours(17, 20.03), 4, '20.03 - 17 = 4 (Rounded Up)');
+      });
+// 8lnBedtime is Before Start Date & Decimal
+    QUnit.test('BedTime @ 5:05 Start Time @ 6:00 - Bedtime is before Start Time & a Decimal', function(assert) {
+        assert.equal(findBaseTotalHours(18, 17.1), 0, '18 - 17 = 0 (-1, Rounded to 0)');
+      });
+    });
+  </script>

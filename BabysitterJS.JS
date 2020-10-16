@@ -42,6 +42,33 @@
         // Finding Late Night Total
             // End Time - Midnight = Number of Late Night Hours
             // Number of Late Night Hours * Late Night Rate ($16.00) = Total Late Night Money
+    // Total Amount of Money = Total Late Night Money + Total Bed Money + Total Base Money
 
+// Finds Total Number of Base Pay Hours
+function findBaseTotalHours(startTime , bedTime) {
 
-    
+// Sets Variables to be Used in Function
+    let baseHours;
+    let midnight = 24;
+
+// Checks if Bedtime is Earlier than Midnight
+    if (bedTime > 4) {
+        baseHours = bedTime - startTime;
+        // IF Bedtime is before Start Time -- Sets Hours to 0 for Base Rate
+        if (baseHours < 0) {
+            baseHours = 0;
+        };
+    };
+
+// Checks if Bedtime is After Midnight
+    if (bedTime < 4) {
+        baseHours = midnight - startTime;
+        // IF Bedtime is before Start Time -- Sets Hours to 0 for Base Rate
+        if (baseHours < 0) {
+            baseHours = 0;
+        };
+    };
+
+    // Returns Number of Hours Rounded up once the Hour Started
+    return Math.ceil(baseHours);
+};
