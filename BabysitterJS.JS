@@ -74,5 +74,23 @@ function findBaseTotalHours(startTime , bedTime) {
 };
 
 function findBedTimeTotalHours(startTime, bedTime, endTime) {
-    return 1500;
+    let bedTimeHours;
+    let midnight = 24;
+    // Bed Time After Midnight
+    if (bedTime < 4) {
+        bedTimeHours = 0;
+    };
+
+    // Bed Time Before End Time
+    if (bedTime < endTime) {
+        bedTimeHours = endTime - bedTime;
+    };
+
+    // Bed Time After Midnight
+    if (bedTime > 4) {
+        if (bedTime > endTime) {
+            bedTimeHours = midnight - bedTime;
+        }
+    }
+    return Math.floor(bedTimeHours);
 };
