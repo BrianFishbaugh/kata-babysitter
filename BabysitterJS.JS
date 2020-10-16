@@ -72,3 +72,7 @@ function findBaseTotalHours(startTime , bedTime) {
     // Returns Number of Hours Rounded up once the Hour Started
     return Math.ceil(baseHours);
 };
+
+function findBedTimeTotalHours(startTime, bedTime, endTime) {
+    return 1500;
+};

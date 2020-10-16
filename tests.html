@@ -72,4 +72,56 @@ QUnit.module('findBaseTotalHours', function() {
         assert.equal(findBaseTotalHours(18, 17.1), 0, '18 - 17 = 0 (-1, Rounded to 0)');
       });
     });
+
   </script>
+
+<script>
+        // Bed Time Hours Testing Function:  
+function findBedTimeTotalHours(startTime, bedTime, endTime) {
+    return null;
+};
+
+// Tests for Bed Time Hours
+QUnit.module('findBedTimeTotalHours', function() {
+
+    // BedTime 11:00 -- Start Time 5:00 -- End Time 3:00 (Generic Situation): 
+    QUnit.test('BedTime Starts at 11:00, Start Time 5:00, End Time 3:00 -- Generic Situation to ensure it works', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 23 , 3), 1, '24 - 23 = 1 -- Bedtime until Midnight');
+      });
+
+    // Tests to See Bedtime BEFORE Start Time
+    QUnit.test('BedTime Starts at 7:00, Start Time 8:00, End Time 3:00 -- BedTime is BEFORE Start Time', function(assert) {
+        assert.equal(findBedTimeTotalHours(19, 20 , 3), 4, '24 - 20 = 4 -- Bedtime until Midnight');
+      });
+
+    // Test to See If Bedtime is AFTER midnight
+    QUnit.test('BedTime Starts at 1:00, Start Time 5:00, End Time 3:00 -- BedTime PAST Midnight Should Return 0', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 1 , 3), 0, '24 - 24 = 0 -- Bedtime After Midnight');
+    });
+
+    // Test for if Bedtime = Midnight
+    QUnit.test('BedTime Starts at 12:00, Start Time 5:00, End Time 3:00 -- Bed time is Midnight', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 24 , 3), 0, '24 - 24 = 0 -- Bedtime until Midnight');
+      });
+
+    // Test for if Bedtime is 15 Minutes past Start Time
+    QUnit.test('BedTime Starts at 5:15, Start Time 5:00, End Time 3:00 -- VERY SHORT Awake Period -- Counts as being awake', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 17.25 , 3), 6, '24 - 23 = 6 -- Charges awake Price (More Money) Then switches to Bed Prices');
+      });
+
+    // Test for End Time Being BEFORE Bed Time
+    QUnit.test('BedTime Starts at 10:00, Start Time 5:00, End Time 9:00 -- End Time is Before Midnight', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 22, 21), 4, '21 - 17 = 4 -- End time is End of Bed Pay instead of Midnight');
+      });
+    
+    // Test for Bed Time 30 minutes BEFORE End Time
+    QUnit.test('BedTime Starts at 9:00, Start Time 5:00, End Time 9:30 -- Bed Time JUST before End Time -- 0 Bed Pay', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 21 , 21.5), 0, '21 - 21 = 0 -- No BedTime Pay -- Getting Normal Rate Pay at all times');
+      });
+
+    // Test for if Bedtime is partial Hour
+    QUnit.test('BedTime Starts at 7:30, Start Time 5:00, End Time 3:00 -- Partial Hours', function(assert) {
+        assert.equal(findBedTimeTotalHours(17, 19.5 , 3), 4, '24 - 19.5 = 4 -- 8:00 -- Midnight (Rounded Down)');
+    });
+});
+</script>
