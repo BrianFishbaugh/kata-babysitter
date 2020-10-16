@@ -36,18 +36,19 @@ function findBaseTotalHours(startTime , bedTime) {
     // Returns Number of Hours Rounded up once the Hour Started
     return Math.ceil(baseHours);
 };
+
 // Tests for Base Rate Hours
-    QUnit.module('findBaseTotalHours', function() {
+QUnit.module('findBaseTotalHours', function() {
 // 1. BedTime < Midnight
-      QUnit.test('Bedtime @ 11:00 Start Time @ 5:00 - Generic Test to Ensure Works', function(assert) {
+    QUnit.test('Bedtime @ 11:00 Start Time @ 5:00 - Generic Test to Ensure Works', function(assert) {
         assert.equal(findBaseTotalHours(17, 23), 6, '23 - 17 = 6');
       });
 // 2. Bedtime > Midnight
-      QUnit.test('BedTime @ 2:00 Start Time @ 5:00 - Bedtime After Midnight to check pay change', function(assert) {
+    QUnit.test('BedTime @ 2:00 Start Time @ 5:00 - Bedtime After Midnight to check pay change', function(assert) {
         assert.equal(findBaseTotalHours(17, 2), 7, '24 - 17 = 7');
       });
 // 3. Bedtime == Start Time 
-      QUnit.test('BedTime @ 5:00 Start Time @ 5:00 - Bedtime IS the start Time', function(assert) {
+    QUnit.test('BedTime @ 5:00 Start Time @ 5:00 - Bedtime IS the start Time', function(assert) {
         assert.equal(findBaseTotalHours(17, 17), 0, '17 - 17 = 0');
       });
 // 3. Bedtime Starts Before Start Time
@@ -66,7 +67,7 @@ function findBaseTotalHours(startTime , bedTime) {
     QUnit.test('BedTime @ 8:02 Start Time @ 5:00 - Bed time is JUST after an Hour', function(assert) {
         assert.equal(findBaseTotalHours(17, 20.03), 4, '20.03 - 17 = 4 (Rounded Up)');
       });
-// 8lnBedtime is Before Start Date & Decimal
+// 8. Bedtime is Before Start Date & Decimal
     QUnit.test('BedTime @ 5:05 Start Time @ 6:00 - Bedtime is before Start Time & a Decimal', function(assert) {
         assert.equal(findBaseTotalHours(18, 17.1), 0, '18 - 17 = 0 (-1, Rounded to 0)');
       });
