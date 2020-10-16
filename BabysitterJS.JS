@@ -81,7 +81,7 @@ function findBaseTotalHours(startTime , bedTime) {
     return Math.ceil(baseHours);
 };
 
-// Finding Bed Time Hours
+// Finding Total Number of Bed Time Pay Hours
 function findBedTimeTotalHours(startTime, endTime, bedTime) {
 
 // Set Variables to Be used in Function
