@@ -26,3 +26,22 @@
     // 24 --> 4 = $16.00 / Hour (ALWAYS, REGARDLESS OF BEDTIME)
     // Bedtime --> 24 = $8.00 / Hour
     // If no Bedtime 17 --> 24 = $12.00 / Hour
+
+// Methods: 
+    // Determine amount of Money
+        // Variables
+            // Find Start Time
+            // Find End Time
+            // Find Bed Time
+        // Finding Base Total
+            // Bed Time - Start Time = Number of Base Hours
+            // Number of Base Hours * Base Rate ($12.00) = Total Base Money
+        // Finding Bedtime Total
+            // Midnight (OR) End Time - Bed Time = Number of Bed Time Hours
+            // Number of Bed Time Hours * Bed Time Rate ($8.00) = Total Bed Money
+        // Finding Late Night Total
+            // End Time - Midnight = Number of Late Night Hours
+            // Number of Late Night Hours * Late Night Rate ($16.00) = Total Late Night Money
+
+
+    
