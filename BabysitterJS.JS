@@ -7,117 +7,99 @@
     // - gets paid $16/hour from midnight to end of job
     // - gets paid for full hours (no fractional hours)
 
-    // Hours Use Military Time starting numbers NOT including Midnight, Midnight will be 24
-        // Example: 6:00 PM => 18:00 => 18, 3:00 AM => 03:00 => 3
-            // 5:00 = 17
-            // 6:00 = 18
-            // 7:00 = 19
-            // 8:00 = 20
-            // 9:00 = 21
-            // 10:00 = 22
-            // 11:00 = 23
-            // 12:00 (Midnight) = 24
-            // 1:00 = 1
-            // 2:00 = 2
-            // 3:00 = 3
-            // 4:00 = 4
+// NOTES:
+    // Times are By Military Time: EXCEPT Midnight -- Midnight = 24
+        // 5:00PM = 17
+        // 6:00PM = 18
+        // 7:00PM = 19
+        // 8:00PM = 20
+        // 9:00PM = 21
+        // 10:00PM = 22
+        // 11:00PM = 23
+        // 12:00AM (Midnight) = 24
+        // 1:00AM = 1
+        // 2:00AM = 2
+        // 3:00AM = 3
+        // 4:00AM = 4
+    // Fraction Times will be rounded for Babysitter's Advantage
 
-    // Pay Rates By Hour
-        // 17 --> Bedtime = $12.00 / Hour
-        // 24 --> 4 = $16.00 / Hour (ALWAYS, REGARDLESS OF BEDTIME)
-        // Bedtime --> 24 = $8.00 / Hour
-        // If no Bedtime 17 --> 24 = $12.00 / Hour
-
-// PSUEDO CODE: 
-
+// PRE-WORK
     // Methods: 
-        // Determine amount of Money
-            // Variables
-                // Find Start Time
-                // Find End Time
-                // Find Bed Time
+        // Calculate Hours of Each Type of Pay Rate
+            // Calculate Base Hours #### DONE ##### 
+                // (Start Time / Midnight --> Bed Time / Midnight / End)
+            // Calculate Bed Hours ##### DONE #####
+                // (Start Time / Bed Time --> Midnight / End Time)
+            // Calculate Late Hours
+                // (Start Time / Midnight --> End)
+        // Calculate Price
+            // Calculate Base Cost
+                // Base Hours * Base Rate (12)
+            // Calculate Bed Cost
+                // Bed Hours * Bed Rate (8)
+            // Calculate Late Cost 
+                // Late Hours * Late Rate (16)
+            // Calculate Total Cost
+                // Base Cost + Bed Cost + Late
+    // Variables & Constants
+        // Times
+            // Start Time
+            // Bed Time
+            // End Time
+            // Midnight (Constant)
+        // Pay Rates
+            // Base Rate (12)
+            // Bed Rate (8)
+            // Late Rate (16)
 
-            // DONE --- Finding Base Total --- DONE
-                // Bed Time - Start Time = Number of Base Hours
-                // Number of Base Hours * Base Rate ($12.00) = Total Base Money
+function findBaseHours(startTime, endTime, bedTime) {
+    const MIDNIGHT = 24; // Sets Midnight as a Variable
+    const EARLIEST_START = 17; // Sets 5:00 PM as a Variable
+    const LATEST_END = 4; // Sets 4:00 AM as a Variable
+    const ELEVEN = 23; // Sets 11:00 PM as a Variable 
 
-            // DONE --- Finding Bedtime Total --- DONE
-                // Midnight (OR) End Time - Bed Time = Number of Bed Time Hours
-                // Number of Bed Time Hours * Bed Time Rate ($8.00) = Total Bed Money
-
-            // Finding Late Night Total 
-                // End Time - Midnight = Number of Late Night Hours
-                // Number of Late Night Hours * Late Night Rate ($16.00) = Total Late Night Money
-        // Total Amount of Money = Total Late Night Money + Total Bed Money + Total Base Money
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Finds Total Number of Base Pay Hours
-function findBaseTotalHours(startTime , bedTime) {
-
-// Sets Variables to be Used in Function
-    let baseHours;
-    let midnight = 24;
-
-// Checks if Bedtime is Earlier than Midnight
-    if (bedTime > 5) {
-        baseHours = bedTime - startTime;
-        // IF Bedtime is before Start Time -- Sets Hours to 0 for Base Rate
-        if (baseHours < 0) {
-            baseHours = 0;
-        };
-    };
-
-// Checks if Bedtime is After Midnight
-    if (bedTime < 5) {
-        baseHours = midnight - startTime;
-        // IF Bedtime is before Start Time -- Sets Hours to 0 for Base Rate
-        if (baseHours < 0) {
-            baseHours = 0;
-        };
-    };
-
-    // Returns Number of Hours Rounded up once the Hour Started
-    return Math.ceil(baseHours);
-};
-
-// Finding Total Number of Bed Time Pay Hours
-function findBedTimeTotalHours(startTime, endTime, bedTime) {
-
-// Set Variables to Be used in Function
-    const midnight = 24;
-    let btHours;
-
-// Checks if Bedtime is before Midnight
-if (bedTime < midnight) {
-    // Checks if the End Time is After Midnight
-    if (endTime < 5) {
-        btHours = midnight - bedTime;
-    };
-
-    // Checks if Bed Time is Before Start Time
-    if (bedTime < startTime) {
-        btHours = midnight - startTime;
+    if ((startTime <= LATEST_END) ||
+        (startTime == MIDNIGHT) || 
+        (startTime >= bedTime && bedTime >= EARLIEST_START) )
+        { 
+        return 0;
+    } 
+    else if (endTime <= LATEST_END && (bedTime > ELEVEN || bedTime <= LATEST_END)) {
+        return Math.ceil(MIDNIGHT - startTime);
     }
-
-    // Checks if End Time is Before Midnight
-    if (endTime >= 17) {
-        if (bedTime < endTime) {
-            btHours = endTime - bedTime;
-        };
-
-        // Checks if Bed Time is After the End Time
-        if (bedTime > endTime) {
-            btHours = 0;
-        };
+    else if ((endTime <= bedTime && endTime >= EARLIEST_START) || (bedTime <= LATEST_END && endTime <= MIDNIGHT)) {
+        return Math.ceil(endTime - startTime);
+    }
+    else {
+        return Math.ceil(bedTime - startTime);
     };
 };
 
-// Checks if Bed Time is After Midnight or Midnight
-if (bedTime < 5 || bedTime == midnight) {
-    btHours = 0;
+function findBedHours(startTime, endTime, bedTime) {
+    const MIDNIGHT = 24; 
+    const EARLIEST_START = 17;
+    const LATEST_END = 4;
+    const ELEVEN = 23;
+
+    if ((bedTime >= endTime && endTime >= EARLIEST_START) || bedTime <= LATEST_END || bedTime > ELEVEN) {
+        return 0;
+    } else if ( bedTime <= startTime) {
+        if (endTime <= MIDNIGHT && endTime >= EARLIEST_START) {
+            return Math.floor(endTime - startTime); 
+        }
+        else { 
+            return Math.floor(MIDNIGHT - startTime);
+        }
+    } else if (bedTime >= startTime) {
+        if (endTime <= MIDNIGHT && endTime >= EARLIEST_START) {
+            return Math.floor (endTime - bedTime);
+        }
+        else {
+            return Math.floor(MIDNIGHT - bedTime);
+        }
+    };
 };
 
-// Returns Rounded DOWN so Babysitter makes more money
-    return Math.floor(btHours);
-};
+function findLateHours(startTime, endTime, bedTime) {
+    return null;
+}
