@@ -42,7 +42,14 @@ function getBedTime() {
         workAbleBedTime = parseInt(hourString);
     }
 
-    return workAbleBedTime;}
+    return workAbleBedTime;
+}
+
+function getNumberOfKids() {
+    var numberOfKidsInput = document.getElementById("numberOfKids").value;
+    var numberOfKids = parseInt(numberOfKidsInput)
+    return numberOfKids;
+}
 
 
 // Calculation Functions: 
@@ -145,11 +152,12 @@ function calculateLatePay(lateHours) {
 };
 
 // Adds the amount owed found w/ functions above then ALERTS it on the webpage 
-function calculateTotalPay(basePay , bedPay , latePay) {
+function calculateTotalPay(basePay , bedPay , latePay , numberOfKids) {
     basePay = calculateBasePay();
     bedPay = calculateBedPay();
     latePay = calculateLatePay();
-    totalPay = basePay + bedPay + latePay;
+    numberOfKids = getNumberOfKids();
+    totalPay = numberOfKids * (basePay + bedPay + latePay);
     alert("The Babysitter will Cost $" + totalPay)
 };
 
