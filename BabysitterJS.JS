@@ -28,7 +28,7 @@ function getEndTime() {
     }
 
     return workableEndTime;
-}
+};
 
 // Same Method as Above, Except for Bed Time
 function getBedTime() {
@@ -43,13 +43,14 @@ function getBedTime() {
     }
 
     return workAbleBedTime;
-}
+};
 
-function getNumberOfKids() {
+// Finds Number of Kids Input by User
+function getNumberOfKids() { 
     var numberOfKidsInput = document.getElementById("numberOfKids").value;
     var numberOfKids = parseInt(numberOfKidsInput)
     return numberOfKids;
-}
+};
 
 
 // Calculation Functions: 
