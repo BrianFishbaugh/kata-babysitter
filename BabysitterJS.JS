@@ -112,3 +112,19 @@ function findLateHours(startTime, endTime, bedTime) {
         return Math.ceil(endTime - 0);
     }
 };
+
+function calculateBasePay(baseHours) {
+    return null;
+};
+
+function calculateBedPay(bedHours) {
+    return null;
+};
+
+function calculateLatePay(lateHours) {
+    return null;
+};
+
+function calculateTotalPay(basePay , bedPay , latePay) {
+    return null;
+};
