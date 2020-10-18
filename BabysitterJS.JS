@@ -114,17 +114,23 @@ function findLateHours(startTime, endTime, bedTime) {
 };
 
 function calculateBasePay(baseHours) {
-    return null;
+    baseHours = findBaseHours;
+    return baseHours * 12;
 };
 
 function calculateBedPay(bedHours) {
-    return null;
+    bedHours = findBedHours;
+    return bedHours * 8;
 };
 
 function calculateLatePay(lateHours) {
-    return null;
+    lateHours = findLateHours;
+    return lateHours * 16;
 };
 
 function calculateTotalPay(basePay , bedPay , latePay) {
-    return null;
+    basePay = calculateBasePay;
+    bedPay = calculateBedPay;
+    latePay = calculateLatePay;
+    return basePay + bedPay + latePay;
 };

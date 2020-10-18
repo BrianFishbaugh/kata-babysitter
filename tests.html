@@ -210,4 +210,73 @@ QUnit.module('findLateHours', function() {
         assert.equal(findLateHours(17, 3.5 , 23), 4, '3.5 - 0 Rounded');
     });
 });
+
+// Calculate Base Pay Testing Function: 
+function calculateBasePay(baseHours) {
+    return baseHours * 12;
+};
+
+// Tests for Base Pay: 
+QUnit.module('calculateBasePay', function() {
+
+    QUnit.test('Normal Hours', function(assert) {
+        assert.equal(calculateBasePay(4), 48, '4 * 12 = 48');
+    });
+
+    QUnit.test('0 Hours', function(assert) {
+        assert.equal(calculateBasePay(0), 0, '0 * 12 = 0');
+    });
+});
+
+// Calculate Bed Pay Testing Function: 
+function calculateBedPay(bedHours) {
+    return bedHours * 8;
+};
+
+// Tests for Bed Pay: 
+QUnit.module('calculateBedPay', function() {
+
+    QUnit.test('Normal Hours', function(assert) {
+        assert.equal(calculateBedPay(4), 32, '4 * 8 = 32');
+    });
+
+    QUnit.test('0 Hours', function(assert) {
+        assert.equal(calculateBedPay(0), 0, '0 * 8 = 0');
+    });
+});
+
+// Calculate Late Pay Testing Function: 
+function calculateLatePay(lateHours) {
+    return lateHours * 16;
+};
+
+// Tests for Late Pay: 
+QUnit.module('calculateLatePay', function() {
+
+    QUnit.test('Normal Hours', function(assert) {
+        assert.equal(calculateLatePay(4), 64, '4 * 16 = 64');
+    });
+
+    QUnit.test('0 Hours', function(assert) {
+        assert.equal(calculateLatePay(0), 0, '0 * 16 = 0');
+    });
+});
+
+// Calculate Total Pay Testing Function:
+function calculateTotalPay(basePay , bedPay , latePay) {
+    return basePay + bedPay + latePay;
+};
+
+// Tests for Total Pay: 
+QUnit.module('calculateTotalPay', function() {
+
+    QUnit.test('Normal Hours', function(assert) {
+        assert.equal(calculateTotalPay(48, 16 , 64), 128, '48 + 16 + 68 = 128');
+    });
+
+    QUnit.test('0 Hours', function(assert) {
+        assert.equal(calculateLatePay(0, 0 , 0), 0, '0 + 0 + 0 = 0');
+    });
+});
+
 </script>
