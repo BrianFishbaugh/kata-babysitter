@@ -1,0 +1,40 @@
+.Title {
+    text-align: center;
+}
+
+.pricingHeader {
+    text-align: center;
+}
+.pricing {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px;
+    grid-gap: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.pricingDisclaimer {
+    text-align: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-gap: 16px;
+    background-color: lightgray;
+}
+
+label {
+    grid-column: 1 / 2;
+}
+ 
+input, button {
+    grid-column: 2 / 3;
+}
+
+button:hover {
+    background-color: blue;
+    color: white;
+}

@@ -150,7 +150,7 @@ function calculateTotalPay(basePay , bedPay , latePay) {
     bedPay = calculateBedPay();
     latePay = calculateLatePay();
     totalPay = basePay + bedPay + latePay;
-    alert(totalPay)
+    alert("The Babysitter will Cost $" + totalPay)
 };
 
 // Optional Functionalities

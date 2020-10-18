@@ -1,5 +1,7 @@
 <head>
     <script src = 'BabysitterJS.JS'></script>
+    <link rel="stylesheet" href="BabysitterCSS.css">
+
 </head>
 <!-- Optional Things Now that there is Functionality: 
         1) Make Calculation pop up in it's own Div instead of it being an alert 
@@ -9,44 +11,47 @@
         <h1>Babysitter Calculator </h1>
     </div>
 
+    <div class = "pricingHeader"> Pricing: </div>
+<br>
     <div class = "Pricing">
-        <p>
-            Pricing: <br>
-            - $12/hour Starting When The Babysitter Gets There until Your child Goes To Bed <br>
-            - $8/hour Starting When Your Children Go to Bed Until Midnight <br>
-            - $16/hour Starting At Midnight, Regardless Of Whether Your Children Are Asleep Or Not <br>
-            - Full Hours ONLY <br>
-        </p>    
+        <div id = "baseHours"> $12/hour Starting When The Babysitter Gets There until Your child Goes To Bed </div>
+        <div id = "bedHours">$8/hour Starting When Your Children Go To Bed Until Midnight</div>
+        <div id = "lateHours">$16/hour Starting At Midnight, Regardless Of Whether Your Children Are Asleep Or Not</div>
+    </div>
+<br>
+    <div class = "pricingDisclaimer">
+        <div id = "disclaimer"> Full Hours Only </div>
     </div>
 
+<br>
 
     <div class = "Form">
 
         <form>
-                <label for ="startDate"> Start Date </label>
+                <label for ="startDate"> Start Date: </label>
                 <input type ="date" id ="startDate" name ="startDate"
                 required>
-            <br>
-                <label for ="startTime"> Start Time </label>
+
+                <label for ="startTime"> Start Time: </label>
                 <input type ="time" id ="startTime" name ="startTime"
                 min="17:00" max="04:00" required>
-            <br>
-                <label for ="endDate"> End Date </label>
+
+                <label for ="endDate"> End Date: </label>
                 <input type ="date" id ="endDate" name = "endDate"
                 required>
-            <br>
-                <label for ="endTime"> End Time </label>
+
+                <label for ="endTime"> End Time: </label>
                 <input type ="time" id ="endTime" name ="endTime"
                 min="17:00" max="04:00" required>
-            <br>
-                <label for ="bedTime"> Bed Time </label>
+
+                <label for ="bedTime"> Bed Time: </label>
                 <input type ="time" id ="bedTime" name ="bedTime"
                 required>
-            <br>
-                <label for ="numberOfKids"> Number Of Children </label>
+
+                <label for ="numberOfKids"> Number Of Children: </label>
                 <input type ="number" id ="numberOfKids" name="numberOfKids"
                 min ="1" max ="5" required> 
-            <br>
+
                 <button onclick="calculateTotalPay()"> How Much Will The Babysitter Cost?</button>
         </form>
     </div>
