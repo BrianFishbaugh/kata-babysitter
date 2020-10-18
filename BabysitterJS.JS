@@ -30,7 +30,7 @@
                 // (Start Time / Midnight --> Bed Time / Midnight / End)
             // Calculate Bed Hours ##### DONE #####
                 // (Start Time / Bed Time --> Midnight / End Time)
-            // Calculate Late Hours
+            // Calculate Late Hours ##### DONE #####
                 // (Start Time / Midnight --> End)
         // Calculate Price
             // Calculate Base Cost
