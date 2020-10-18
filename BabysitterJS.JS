@@ -101,5 +101,14 @@ function findBedHours(startTime, endTime, bedTime) {
 };
 
 function findLateHours(startTime, endTime, bedTime) {
-    return null;
-}
+    const EARLIEST_START = 17;
+    const LATEST_END = 4;
+
+    if (endTime >= EARLIEST_START) {
+        return 0;
+    } else if (startTime <= LATEST_END) {
+        return Math.ceil(endTime - startTime);
+    } else {
+        return Math.ceil(endTime - 0);
+    }
+};

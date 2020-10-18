@@ -177,6 +177,37 @@ QUnit.module('findBedHours', function() {
 });
 
 // Late Night Testing Function: 
+function findLateHours(startTime, endTime, bedTime) {
+    if (endTime >= 17) {
+        return 0;
+    } else if (startTime <= 4) {
+        return Math.ceil(endTime - startTime);
+    } else {
+        return Math.ceil(endTime - 0);
+    }
+};
 
 // Tests for Late Night Hours: 
+QUnit.module('findLateHours', function() {
+
+    QUnit.test('Midnight -> End', function(assert) {
+        assert.equal(findLateHours(17, 3 , 23), 3, '3 - 0');
+    });
+
+    QUnit.test('End Before Midnight', function(assert) {
+        assert.equal(findLateHours(17, 23 , 23), 0, 'No Late Hours');
+    });
+
+    QUnit.test('End is Midnight', function(assert) {
+        assert.equal(findLateHours(19, 24 , 3), 0, 'No Late Hours');
+    });
+
+    QUnit.test('Start -> End', function(assert) {
+        assert.equal(findLateHours(2, 4 , 23), 2, '4 - 2');
+    });
+
+    QUnit.test('Partial Hour', function(assert) {
+        assert.equal(findLateHours(17, 3.5 , 23), 4, '3.5 - 0 Rounded');
+    });
+});
 </script>
